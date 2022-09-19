@@ -57,7 +57,9 @@ function Table({ columns, data, renderRowSubComponent }) {
             <tr {...group.getHeaderGroupProps()} className="header">
               {group.headers.map((column) => (
                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                  <span>
+                  <span className="header">{column.render('Header')}</span>
+                  <span style={{ fontSize: 0 }}>&nbsp;</span>
+                  <span className="sort">
                     {
                       column.isSorted
                         ? column.isSortedDesc
@@ -75,8 +77,6 @@ function Table({ columns, data, renderRowSubComponent }) {
                         : ''
                     }
                   </span>
-                  &nbsp;
-                  {column.render('Header')}
                 </th>
               ))}
             </tr>
@@ -113,20 +113,20 @@ function Table({ columns, data, renderRowSubComponent }) {
         </tbody>
       </table>
       <div className="pagination">
-        <button type="button" onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-          {'<<'}
+        <button className="left first" type="button" onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+          ◀◀
         </button>
         {' '}
-        <button type="button" onClick={() => previousPage()} disabled={!canPreviousPage}>
-          {'<'}
+        <button className="left" type="button" onClick={() => previousPage()} disabled={!canPreviousPage}>
+          ◀
         </button>
         {' '}
         <button type="button" onClick={() => nextPage()} disabled={!canNextPage}>
-          {'>'}
+          ▶
         </button>
         {' '}
-        <button type="button" onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-          {'>>'}
+        <button className="last" type="button" onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+          ▶▶
         </button>
         {' '}
         <span>

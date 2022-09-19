@@ -33,13 +33,27 @@
         }
         &.header {
           background-color: #009edb;
+          border: 1px solid #ccc;
           color: #fff;
           th {
             border: 1px solid #ccc;
-            span {
-              margin-left: 5px;
+            white-space: nowrap;
+            &:nth-child(1) {
+              border-right: 1px solid transparent;
+            }
+            &:nth-child(2) {
+              padding-left: 20px;
+              text-align: left;
+            }
+            span.sort {
               vertical-align: middle;
               white-space: nowrap;
+              svg {
+                margin-left: 5px;
+              }
+            }
+            span.header {
+              white-space: normal;
             }
           }
         }
@@ -70,6 +84,25 @@
         }
       }
     }
+  }
+  .pagination {
+    button {
+      cursor: pointer;
+      font-size: 16px;
+      height: 28px;
+      line-height: 26px;
+      text-align: center;
+      vertical-align: middle;
+      width: 30px;
+      &.first,
+      &.last {
+        width: 45px;
+      }
+      &.left {
+        letter-spacing: -0.2em;
+      }
+    }
+    margin-bottom: 20px;
   }
 }
 
