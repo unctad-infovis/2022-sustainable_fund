@@ -23,10 +23,6 @@ function Filter({ preGlobalFilteredRows, globalFilter, setGlobalFilter }) {
           onChange(e.target.value);
         }}
         placeholder={`${count} records...`}
-        style={{
-          fontSize: '1.1rem',
-          border: '0'
-        }}
       />
     </span>
   );
@@ -62,7 +58,7 @@ function Table({ columns, data }) {
   } = useTable({
     columns,
     data,
-    initialState: { pageSize: 2, pageIndex: 0, globalFilter: '' }
+    initialState: { pageSize: 30, pageIndex: 0, globalFilter: '' }
   }, useGlobalFilter, useSortBy, usePagination);
 
   // Render the UI for your table
@@ -70,11 +66,10 @@ function Table({ columns, data }) {
     <div className="app">
       <table
         {...getTableProps()}
-        border={1}
         style={{ borderCollapse: 'collapse', width: '100%' }}
       >
         <thead>
-          <tr>
+          <tr className="search">
             <th colSpan={100}>
               <Filter
                 preGlobalFilteredRows={preGlobalFilteredRows}
@@ -84,7 +79,7 @@ function Table({ columns, data }) {
             </th>
           </tr>
           {headerGroups.map((group) => (
-            <tr {...group.getHeaderGroupProps()}>
+            <tr {...group.getHeaderGroupProps()} className="header">
               {group.headers.map((column) => (
                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                   {column.render('Header')}
@@ -92,8 +87,8 @@ function Table({ columns, data }) {
                     {
                       column.isSorted
                         ? column.isSortedDesc
-                          ? ' desc'
-                          : ' asc'
+                          ? ' ↑'
+                          : ' ↓'
                         : ''
                     }
                   </span>
@@ -149,7 +144,7 @@ function Table({ columns, data }) {
             setPageSize(Number(e.target.value));
           }}
         >
-          {[2, 10, 20, 30, 40, 50].map((pages) => (
+          {[10, 20, 30, 40, 50].map((pages) => (
             <option key={pages} value={pages}>
               Show
               {' '}

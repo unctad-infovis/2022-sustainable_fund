@@ -6,6 +6,50 @@
   font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: auto auto;
   max-width: 1000px;
+  table {
+    border-spacing: 0;
+    margin-bottom: 20px;
+    thead {
+      tr {
+        th {
+          font-size: 16px;
+          font-weight: 700;
+          padding: 5px;
+        }
+        &.header {
+          th {
+            border: 1px solid #ccc;
+          }
+          background-color: #009edb;
+          color: #fff;
+        }
+        &.search {
+          background-color: #fff;
+          color: #000;
+          text-align: left;
+          th {
+            padding-bottom: 10px;
+            input {
+              border-color: #ccc;
+              border-style: solid;
+              border-width: 0 0 1px 0;
+              font-size: 1.1rem;
+              outline: none;
+            }
+          }
+        }
+      }
+    }
+    tbody {
+      tr {
+        td {
+          border: 1px solid #ccc;
+          font-size: 14px;
+          padding: 5px;
+        }
+      }
+    }
+  }
 }
 
 @import 'basics.less';
