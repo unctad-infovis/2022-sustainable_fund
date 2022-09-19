@@ -58,7 +58,7 @@ function Table({ columns, data }) {
   } = useTable({
     columns,
     data,
-    initialState: { pageSize: 30, pageIndex: 0, globalFilter: '' }
+    initialState: { pageSize: 50, pageIndex: 0, globalFilter: '' }
   }, useGlobalFilter, useSortBy, usePagination);
 
   // Render the UI for your table
@@ -102,7 +102,17 @@ function Table({ columns, data }) {
             prepareRow(row);
             return (
               <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => <td {...cell.getCellProps()}>{cell.render('Cell')}</td>)}
+                {row.cells.map((cell) => (
+                  <td
+                    {...cell.getCellProps([
+                      {
+                        style: cell.column.style,
+                      }
+                    ])}
+                  >
+                    {cell.render('Cell')}
+                  </td>
+                ))}
               </tr>
             );
           })}

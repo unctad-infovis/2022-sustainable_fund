@@ -4,10 +4,28 @@ import '../styles/styles.less';
 // Load helpers.
 import Table from './Table.jsx';
 import { getData } from './helpers/GetData.js';
-// import formatNr from './helpers/FormatNr.js';
-// import roundNr from './helpers/RoundNr.js';
+import formatNr from './helpers/FormatNr.js';
+import roundNr from './helpers/RoundNr.js';
 
 // const appID = '#app-root-2022-sustainable_fund';
+
+function formatCellNetClimateImpact(text, value) {
+  return (value < 0) ? <span className="alert">{text}</span> : text;
+}
+
+function compareNumericString(rowA, rowB, id, desc) {
+  let a = Number.parseFloat(rowA.values[id]);
+  let b = Number.parseFloat(rowB.values[id]);
+  if (Number.isNaN(a)) { // Blanks and non-numeric strings to bottom
+    a = desc ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY;
+  }
+  if (Number.isNaN(b)) {
+    b = desc ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY;
+  }
+  if (a > b) return 1;
+  if (a < b) return -1;
+  return 0;
+}
 
 function App() {
   // Data states.
@@ -16,14 +34,50 @@ function App() {
   const [rowData, setRowData] = useState([]);
 
   useEffect(() => {
-    const columns = ['Fund Provider', 'AuM ($ million)', 'Performance', 'Region', 'ESG Rating (Conser)', 'Applied SFDR Article', 'Net climate impact (%)', 'SDG Alignment (%)'];
+    const columns = ['Fund Provider', 'AuM ($ million)', 'PERF 2021 USD', 'Region', 'ESG Rating (Conser)', 'Applied SFDR Article', 'Net climate impact (%)', 'SDG Alignment (%)'];
     getData().then(data => {
-      setColumnData(columns.map((column, i) => ({
-        accessor: `${i}`, Header: column
-      })));
+      setColumnData([{
+        accessor: '0',
+        Cell: ({ value }) => value,
+        Header: 'Fund Provider'
+      }, {
+        accessor: '1',
+        Cell: ({ value }) => formatNr(roundNr(value, 1), ',', 'M', '$'),
+        Header: 'AuM',
+        style: { textAlign: 'right' }
+      }, {
+        accessor: '2',
+        Cell: ({ value }) => formatNr(roundNr(parseFloat(value) * 100, 1), '.', '%', '', true, true),
+        Header: 'PERF 2021 USD',
+        sortType: compareNumericString,
+        style: { textAlign: 'right' }
+      }, {
+        accessor: '3',
+        Cell: ({ value }) => value,
+        Header: 'Region'
+      }, {
+        accessor: '4',
+        Cell: ({ value }) => value,
+        Header: 'ESG Rating (Conser)',
+        style: { textAlign: 'center' }
+      }, {
+        accessor: '5',
+        Cell: ({ value }) => ((value !== '') ? value : '–'),
+        Header: 'Applied SFDR Article',
+      }, {
+        accessor: '6',
+        Cell: ({ value }) => formatCellNetClimateImpact(formatNr(roundNr(parseFloat(value) * 100, 1), '.', '%', '', true, true, value), parseFloat(value)),
+        Header: 'Net climate impact (%)',
+        sortType: compareNumericString,
+        style: { textAlign: 'right' }
+      }, {
+        accessor: '7',
+        Cell: ({ value }) => formatNr(roundNr(parseFloat(value) * 100, 1), '.', '%', '', true, true),
+        Header: 'SDG Alignment (%)',
+        sortType: compareNumericString,
+        style: { textAlign: 'right' }
+      }]);
 
-      // console.log(columns.map((column, i) => ({ [i]: column })));
-      // console.log({ 0: 'value', 1: 'value' });
       const rows = data.map(row => ({
         0: row[columns[0]],
         1: row[columns[1]],
