@@ -16,7 +16,8 @@ function addAlert(text, value) {
 function expander(row) {
   return (
     <span {...row.getToggleRowExpandedProps()}>
-      {row.isExpanded ? '👇' : '👉'}
+      {row.isExpanded ? '▼' : '▶'}
+
     </span>
   );
 }
@@ -72,9 +73,8 @@ function App() {
   useEffect(() => {
     getData().then(data => {
       setColumnData([{
-        // Make an expander cell
-        Header: () => null, // No header
-        id: 'expander', // It needs an ID
+        Header: () => null,
+        id: 'expander',
         Cell: ({ row }) => expander(row),
       }, {
         accessor: '0',
