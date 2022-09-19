@@ -17,7 +17,6 @@ function expander(row) {
   return (
     <span {...row.getToggleRowExpandedProps()}>
       {row.isExpanded ? '▼' : '▶'}
-
     </span>
   );
 }

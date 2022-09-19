@@ -57,7 +57,6 @@ function Table({ columns, data, renderRowSubComponent }) {
             <tr {...group.getHeaderGroupProps()} className="header">
               {group.headers.map((column) => (
                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                  {column.render('Header')}
                   <span>
                     {
                       column.isSorted
@@ -76,6 +75,8 @@ function Table({ columns, data, renderRowSubComponent }) {
                         : ''
                     }
                   </span>
+                  &nbsp;
+                  {column.render('Header')}
                 </th>
               ))}
             </tr>
