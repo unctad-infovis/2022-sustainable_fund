@@ -1,65 +1,40 @@
 import React from 'react';
 // https://www.npmjs.com/package/react-table
 import {
-  useTable, useSortBy, usePagination, useGlobalFilter, useAsyncDebounce
+  useTable, useSortBy, usePagination, useGlobalFilter, useExpanded
 } from 'react-table';
+
 import PropTypes from 'prop-types';
 
-function Filter({ preGlobalFilteredRows, globalFilter, setGlobalFilter }) {
-  const count = preGlobalFilteredRows.length;
-  const [value, setValue] = React.useState(globalFilter);
-  const onChange = useAsyncDebounce((val) => {
-    setGlobalFilter(val || undefined);
-  }, 200);
+// Load helpers.
+import Filter from './helpers/Filter.jsx';
 
-  return (
-    <span>
-      Search:
-      {' '}
-      <input
-        value={value || ''}
-        onChange={(e) => {
-          setValue(e.target.value);
-          onChange(e.target.value);
-        }}
-        placeholder={`${count} records...`}
-      />
-    </span>
-  );
-}
-
-Filter.propTypes = {
-  preGlobalFilteredRows: PropTypes.instanceOf(Array).isRequired,
-  globalFilter: PropTypes.string,
-  setGlobalFilter: PropTypes.instanceOf(Function).isRequired
-};
-Filter.defaultProps = {
-  globalFilter: ''
-};
-
-function Table({ columns, data }) {
+function Table({ columns, data, renderRowSubComponent }) {
   // https://akashmittal.com/react-table-learn-filter-sort-pagination-in-10-minutes/
   const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    page,
-    prepareRow,
-    canPreviousPage,
     canNextPage,
-    pageCount,
+    canPreviousPage,
+    getTableBodyProps,
+    getTableProps,
     gotoPage,
+    headerGroups,
     nextPage,
-    previousPage,
-    setPageSize,
-    state: { pageIndex, pageSize, globalFilter },
+    page,
+    pageCount,
     preGlobalFilteredRows,
-    setGlobalFilter
+    prepareRow,
+    previousPage,
+    setGlobalFilter,
+    setPageSize,
+    state: {
+      pageIndex, pageSize, globalFilter
+    },
+    visibleColumns
   } = useTable({
     columns,
     data,
     initialState: { pageSize: 50, pageIndex: 0, globalFilter: '' }
-  }, useGlobalFilter, useSortBy, usePagination);
+  }, useGlobalFilter, useSortBy, useExpanded, usePagination);
 
   // Render the UI for your table
   return (
@@ -101,23 +76,31 @@ function Table({ columns, data }) {
           {page.map((row) => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => (
-                  <td
-                    {...cell.getCellProps([
-                      {
-                        style: cell.column.style,
-                      }
-                    ])}
-                  >
-                    {cell.render('Cell')}
-                  </td>
-                ))}
-              </tr>
+              <React.Fragment key={row.id}>
+                <tr {...row.getRowProps()}>
+                  {row.cells.map(cell => (
+                    <td
+                      {...cell.getCellProps([
+                        {
+                          style: cell.column.style,
+                        }
+                      ])}
+                    >
+                      {cell.render('Cell')}
+                    </td>
+                  ))}
+                </tr>
+                {row.isExpanded ? (
+                  <tr>
+                    <td colSpan={visibleColumns.length}>
+                      {renderRowSubComponent({ row })}
+                    </td>
+                  </tr>
+                ) : null}
+              </React.Fragment>
             );
           })}
         </tbody>
-
       </table>
       <div className="pagination">
         <button type="button" onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
@@ -169,7 +152,8 @@ function Table({ columns, data }) {
 
 Table.propTypes = {
   columns: PropTypes.instanceOf(Array).isRequired,
-  data: PropTypes.instanceOf(Array).isRequired
+  data: PropTypes.instanceOf(Array).isRequired,
+  renderRowSubComponent: PropTypes.instanceOf(Function).isRequired
 };
 
 export default Table;
