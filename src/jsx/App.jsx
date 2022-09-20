@@ -43,28 +43,69 @@ function App() {
 
   const renderRowSubComponent = React.useCallback(
     ({ row }) => (
-      <>
-        <div className="sub_component_row">
-          <span className="label">Fund name: </span>
-          {' '}
-          <span className="value">{row.original[8]['Fund Name']}</span>
+      <div className="sub_component">
+        <div className="further_info_container row">
+          {
+            ['Fund Name', 'ISIN', 'LPID'].map(value => (
+              <div className="row" key={value}>
+                <span className="label">
+                  {value}
+                  :
+                </span>
+                {' '}
+                <span className="value">{row.original[8][value]}</span>
+              </div>
+            ))
+          }
         </div>
-        <div className="sub_component_row">
-          <span className="label">ISIN: </span>
-          {' '}
-          <span className="value">{row.original[8].ISIN}</span>
+        <div className="further_info_container column">
+          <div className="column">
+            <h3>Sustainability Investment Strategy</h3>
+            {
+              ['Best in class', 'Positive Screen', 'Negative Screen', 'ESG Incorporation', 'Engagement', 'Thematic'].map(value => (
+                <div key={value}>
+                  <span className="label">
+                    {value}
+                    :
+                  </span>
+                  {' '}
+                  <span className="value">{(row.original[8][value]) === 'yes' ? 'Yes' : 'No'}</span>
+                </div>
+              ))
+            }
+          </div>
+          <div className="column">
+            <h3>Climate Impact</h3>
+            {
+              ['Net climate impact (%)', 'Cleantech (%)', 'Green Bonds (%)', 'Fossil Fuels (%)', 'Coal (%)', 'CO2 Intensity (MT per $ million revenue)', 'BM tCO2eq/ Revenues ($mio)'].map((value, i) => (
+                <div key={value}>
+                  <span className="label">
+                    {value}
+                    :
+                  </span>
+                  {' '}
+                  <span className="value">{(i < 5) ? formatNr(roundNr(parseFloat(row.original[8][value]) * 100, 1), '.', '%', '', true, false) : formatNr(roundNr(row.original[8][value], 1), ',', 'M', '$')}</span>
+                </div>
+              ))
+            }
+          </div>
+          <div className="column">
+            <h3>SDG Alignment</h3>
+            {
+              ['SDG Alignment (%)', 'Sensitive sectors (%)'].map(value => (
+                <div key={value}>
+                  <span className="label">
+                    {value}
+                    :
+                  </span>
+                  {' '}
+                  <span className="value">{formatNr(roundNr(parseFloat(row.original[8][value]) * 100, 1), '.', '%', '', true, false)}</span>
+                </div>
+              ))
+            }
+          </div>
         </div>
-        <div className="sub_component_row">
-          <span className="label">LPID: </span>
-          {' '}
-          <span className="value">{row.original[8].LPID}</span>
-        </div>
-        <div className="sub_component_row">
-          <div className="label">Funds Description: </div>
-          {' '}
-          <p className="value">{row.original[8]['Funds Description']}</p>
-        </div>
-      </>
+      </div>
     ),
     []
   );
@@ -72,9 +113,10 @@ function App() {
   useEffect(() => {
     getData().then(data => {
       setColumnData([{
+        Cell: ({ row }) => expander(row),
         Header: () => null,
         id: 'expander',
-        Cell: ({ row }) => expander(row),
+        style: { textAlign: 'center' }
       }, {
         accessor: '0',
         Cell: ({ value }) => value,

@@ -89,13 +89,7 @@ function Table({ columns, data, renderRowSubComponent }) {
               <React.Fragment key={row.id}>
                 <tr {...row.getRowProps()}>
                   {row.cells.map(cell => (
-                    <td
-                      {...cell.getCellProps([
-                        {
-                          style: cell.column.style,
-                        }
-                      ])}
-                    >
+                    <td {...cell.getCellProps([{ style: cell.column.style }])}>
                       {cell.render('Cell')}
                     </td>
                   ))}
