@@ -88,9 +88,19 @@ function App() {
                     ? (
                       <div className="value_container with_bar">
                         <div className="bar" style={{ width: `${row.original[8][value] * 100}%` }} />
-                        <span className="value" style={{ marginLeft: `${row.original[8][value] * 100 + 1}%` }}>
-                          {(i < 3) ? formatNr(roundNr(parseFloat(row.original[8][value]) * 100, 1), '.', '%', '', true, false) : formatNr(roundNr(row.original[8][value], 1), ',', 'M', '$')}
-                        </span>
+                        {
+                          row.original[8][value] > 0.8
+                            ? (
+                              <span className="value" style={{ marginLeft: '1%', color: '#fff' }}>
+                                {(i < 3) ? formatNr(roundNr(parseFloat(row.original[8][value]) * 100, 1), '.', '%', '', true, false) : formatNr(roundNr(row.original[8][value], 1), ',', 'M', '$')}
+                              </span>
+                            )
+                            : (
+                              <span className="value" style={{ marginLeft: `${row.original[8][value] * 100 + 1}%` }}>
+                                {(i < 3) ? formatNr(roundNr(parseFloat(row.original[8][value]) * 100, 1), '.', '%', '', true, false) : formatNr(roundNr(row.original[8][value], 1), ',', 'M', '$')}
+                              </span>
+                            )
+                        }
                         <span className="avg">{`avg ${formatNr(roundNr(row.original[value] * 100, 1), '.', '%', '', true, false)}`}</span>
                       </div>
                     )
@@ -115,9 +125,19 @@ function App() {
                   </div>
                   <div className="value_container with_bar">
                     <div className="bar" style={{ width: `${row.original[8][value] * 100}%` }} />
-                    <span className="value" style={{ marginLeft: `${row.original[8][value] * 100 + 1}%` }}>
-                      {formatNr(roundNr(parseFloat(row.original[8][value]) * 100, 1), '.', '%', '', true, false)}
-                    </span>
+                    {
+                      row.original[8][value] > 0.8
+                        ? (
+                          <span className="value" style={{ marginLeft: '1%', color: '#fff' }}>
+                            {formatNr(roundNr(parseFloat(row.original[8][value]) * 100, 1), '.', '%', '', true, false)}
+                          </span>
+                        )
+                        : (
+                          <span className="value" style={{ marginLeft: `${row.original[8][value] * 100 + 1}%` }}>
+                            {formatNr(roundNr(parseFloat(row.original[8][value]) * 100, 1), '.', '%', '', true, false)}
+                          </span>
+                        )
+                    }
                     <span className="avg">{`avg ${formatNr(roundNr(row.original[value] * 100, 1), '.', '%', '', true, false)}`}</span>
                   </div>
                 </div>
