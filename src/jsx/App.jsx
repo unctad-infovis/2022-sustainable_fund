@@ -91,7 +91,7 @@ function App() {
                         <span className="value" style={{ marginLeft: `${row.original[8][value] * 100 + 1}%` }}>
                           {(i < 3) ? formatNr(roundNr(parseFloat(row.original[8][value]) * 100, 1), '.', '%', '', true, false) : formatNr(roundNr(row.original[8][value], 1), ',', 'M', '$')}
                         </span>
-                        <span className="avg">avg 50%</span>
+                        <span className="avg">{`avg ${formatNr(roundNr(row.original[value] * 100, 1), '.', '%', '', true, false)}`}</span>
                       </div>
                     )
                     : (
@@ -118,6 +118,7 @@ function App() {
                     <span className="value" style={{ marginLeft: `${row.original[8][value] * 100 + 1}%` }}>
                       {formatNr(roundNr(parseFloat(row.original[8][value]) * 100, 1), '.', '%', '', true, false)}
                     </span>
+                    <span className="avg">{`avg ${formatNr(roundNr(row.original[value] * 100, 1), '.', '%', '', true, false)}`}</span>
                   </div>
                 </div>
               ))
@@ -188,7 +189,11 @@ function App() {
         5: row[columns[5]],
         6: row[columns[6]],
         7: row[columns[7]],
-        8: row
+        8: row,
+        'Cleantech (%)': data.reduce((a, b) => a + parseFloat(b['Cleantech (%)']), 0) / data.length,
+        'Fossil Fuels (%)': data.reduce((a, b) => a + parseFloat(b['Fossil Fuels (%)']), 0) / data.length,
+        'Coal (%)': data.reduce((a, b) => a + parseFloat(b['Coal (%)']), 0) / data.length,
+        'Sensitive sectors (%)': data.reduce((a, b) => a + parseFloat(b['Sensitive sectors (%)']), 0) / data.length
       }));
 
       setRowData(rows);
