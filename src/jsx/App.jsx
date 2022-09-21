@@ -44,102 +44,102 @@ function App() {
   const renderRowSubComponent = React.useCallback(
     ({ row }) => (
       <div className="sub_component">
-        <div className="further_info_container row_container">
+        <h3>{row.original[8]['Fund Name']}</h3>
+        <div className="further_info_container">
           {
-            ['Fund Name', 'ISIN', 'LPID'].map(value => (
-              <div className="row" key={value}>
+            [{ title: 'ISIN', id: 'ISIN' }, { title: 'LPID', id: 'LPID' }].map(value => (
+              <div className="top_column" key={value.id}>
                 <span className="label">
-                  {value}
+                  {value.title}
                   :
                 </span>
                 {' '}
-                <span className="value">{row.original[8][value]}</span>
+                <span className="value">{row.original[8][value.id]}</span>
               </div>
             ))
           }
         </div>
-        <div className="further_info_container column_container">
+        <div className="further_info_container">
           <div className="column">
-            <h3>Sustainability Investment Strategy</h3>
+            <h4>Sustainability Investment Strategy</h4>
             {
               ['Best in class', 'Positive Screen', 'Negative Screen', 'ESG Incorporation', 'Engagement', 'Thematic'].map(value => (
                 (row.original[8][value] === 'yes')
                   && (
                   <div className="row" key={value}>
+                    <span className="value">{(row.original[8][value]) === 'yes' ? '✅ ' : ''}</span>
                     <span className="label">
                       {value}
                     </span>
-                    {' '}
-                    <span className="value">{(row.original[8][value]) === 'yes' ? '✅' : ''}</span>
                   </div>
                   )
               ))
             }
-          </div>
-          <div className="column">
-            <h3>Climate Impact</h3>
+            <br />
+            <h4>Sustainable Development Goals</h4>
             {
-              ['Cleantech (%)', 'Fossil Fuels (%)', 'Coal (%)', 'CO2 Intensity (MT per $ million revenue)', 'BM tCO2eq/ Revenues ($mio)'].map((value, i) => (
-                <div className="row" key={value}>
+              [{ title: 'SDG Alignment', id: 'SDG Alignment (%)' }, { title: 'Sensitive sectors', id: 'Sensitive sectors (%)' }].map((value, i) => (
+                <div className="row" key={value.id}>
                   <div className="label">
-                    {value}
+                    {value.title}
                   </div>
-                  {(i < 3)
-                    ? (
-                      <div className="value_container with_bar">
-                        <div className="bar" style={{ width: `${row.original[8][value] * 100}%` }} />
-                        {
-                          row.original[8][value] > 0.8
-                            ? (
-                              <span className="value" style={{ marginLeft: '1%', color: '#fff' }}>
-                                {(i < 3) ? formatNr(roundNr(parseFloat(row.original[8][value]) * 100, 1), '.', '%', '', true, false) : formatNr(roundNr(row.original[8][value], 1), ',', 'M', '$')}
-                              </span>
-                            )
-                            : (
-                              <span className="value" style={{ marginLeft: `${row.original[8][value] * 100 + 1}%` }}>
-                                {(i < 3) ? formatNr(roundNr(parseFloat(row.original[8][value]) * 100, 1), '.', '%', '', true, false) : formatNr(roundNr(row.original[8][value], 1), ',', 'M', '$')}
-                              </span>
-                            )
-                        }
-                        <span className="avg">{`avg ${formatNr(roundNr(row.original[value] * 100, 1), '.', '%', '', true, false)}`}</span>
-                      </div>
-                    )
-                    : (
-                      <div className="value_container">
-                        <span className="value">
-                          {(i < 3) ? formatNr(roundNr(parseFloat(row.original[8][value]) * 100, 1), '.', '%', '', true, false) : formatNr(roundNr(row.original[8][value], 1), ',', 'M', '$')}
-                        </span>
-                      </div>
-                    )}
+                  <div className={`value_container value_container_${i} with_bar`}>
+                    <div className="bar" style={{ width: `${row.original[8][value.id] * 100}%` }} />
+                    {
+                      row.original[8][value] > 0.8
+                        ? (
+                          <span className="value" style={{ marginLeft: '1%', color: '#fff' }}>
+                            {formatNr(roundNr(parseFloat(row.original[8][value.id]) * 100, 2), '.', '%', '', true, true)}
+                          </span>
+                        )
+                        : (
+                          <span className="value" style={{ marginLeft: `${row.original[8][value.id] * 100 + 1}%` }}>
+                            {formatNr(roundNr(parseFloat(row.original[8][value.id]) * 100, 2), '.', '%', '', true, true)}
+                          </span>
+                        )
+                    }
+                    <span className="avg">{`avg ${formatNr(roundNr(row.original[value.id] * 100, 1), '.', '%', '', true, true)}`}</span>
+                  </div>
                 </div>
               ))
             }
           </div>
           <div className="column">
-            <h3>SDG Alignment</h3>
+            <h4>Net climate impact</h4>
             {
-              ['Sensitive sectors (%)'].map(value => (
-                <div className="row" key={value}>
+              [{ title: 'Cleantech minus fossil fuels', id: 'Net climate impact (%)' }, { title: 'Cleantech in total', id: 'Cleantech (%)' }, { title: 'Fossil Fuels in total', id: 'Fossil Fuels (%)' }, { title: 'Share of Coal in Fossil', id: 'Coal (%)' }, { title: 'CO2 Intensity', id: 'CO2 Intensity (MT per $ million revenue)' }, { title: 'BM', id: 'BM tCO2eq/ Revenues ($mio)' }].map((value, i) => (
+                <div className="row" key={value.id}>
                   <div className="label">
-                    {value}
+                    {value.title}
                   </div>
-                  <div className="value_container with_bar">
-                    <div className="bar" style={{ width: `${row.original[8][value] * 100}%` }} />
-                    {
-                      row.original[8][value] > 0.8
-                        ? (
-                          <span className="value" style={{ marginLeft: '1%', color: '#fff' }}>
-                            {formatNr(roundNr(parseFloat(row.original[8][value]) * 100, 1), '.', '%', '', true, false)}
-                          </span>
-                        )
-                        : (
-                          <span className="value" style={{ marginLeft: `${row.original[8][value] * 100 + 1}%` }}>
-                            {formatNr(roundNr(parseFloat(row.original[8][value]) * 100, 1), '.', '%', '', true, false)}
-                          </span>
-                        )
-                    }
-                    <span className="avg">{`avg ${formatNr(roundNr(row.original[value] * 100, 1), '.', '%', '', true, false)}`}</span>
-                  </div>
+                  {(i < 4)
+                    ? (
+                      <div className={(i === 0) ? `value_container value_container_${i} with_bar first` : `value_container value_container_${i} with_bar`}>
+                        <div className="bar" style={{ width: `${row.original[8][value.id] * 100}%` }} />
+                        {
+                          row.original[8][value.id] > 0.8
+                            ? (
+                              <span className="value" style={{ marginLeft: '1%', color: '#fff' }}>
+                                {(i < 4) ? formatNr(roundNr(parseFloat(row.original[8][value.id]) * 100, 2), '.', '%', '', true, true) : formatNr(roundNr(row.original[8][value.id], 1), ',', 'M', '$')}
+                              </span>
+                            )
+                            : (
+                              <span className="value" style={{ marginLeft: `${Math.max(row.original[8][value.id] * 100, 0) + 1}%` }}>
+                                {(i < 4) ? formatNr(roundNr(parseFloat(row.original[8][value.id]) * 100, 2), '.', '%', '', true, true) : formatNr(roundNr(row.original[8][value.id], 1), ',', 'M', '$')}
+                              </span>
+                            )
+                        }
+                        <span className="avg">{`avg ${formatNr(roundNr(row.original[value.id] * 100, 1), '.', '%', '', true, true)}`}</span>
+                      </div>
+                    )
+                    : (
+                      <div className="value_container">
+                        <span className="value" style={{ fontWeight: 'bold' }}>
+                          {formatNr(roundNr(row.original[8][value.id], 1), ',', 'M', '$')}
+                        </span>
+                        <span className="avg">{`avg ${formatNr(roundNr(row.original[value.id], 1), ',', 'M', '$', true, false)}`}</span>
+                      </div>
+                    )}
                 </div>
               ))
             }
@@ -187,13 +187,13 @@ function App() {
         Header: 'Applied SFDR Article',
       }, {
         accessor: '6',
-        Cell: ({ value }) => addAlert(formatNr(roundNr(parseFloat(value) * 100, 1), '.', '%', '', true, true, value), parseFloat(value)),
+        Cell: ({ value }) => addAlert(formatNr(roundNr(parseFloat(value) * 100, 2), '.', '%', '', true, true, value), parseFloat(value)),
         Header: 'Net climate impact',
         sortType: compareNumericString,
         style: { textAlign: 'right' }
       }, {
         accessor: '7',
-        Cell: ({ value }) => formatNr(roundNr(parseFloat(value) * 100, 1), '.', '%', '', true, true),
+        Cell: ({ value }) => formatNr(roundNr(parseFloat(value) * 100, 2), '.', '%', '', true, true),
         Header: 'SDG Alignment',
         sortType: compareNumericString,
         style: { textAlign: 'right' }
@@ -210,9 +210,13 @@ function App() {
         6: row[columns[6]],
         7: row[columns[7]],
         8: row,
+        'BM tCO2eq/ Revenues ($mio)': data.reduce((a, b) => a + parseFloat(b['BM tCO2eq/ Revenues ($mio)']), 0) / data.length,
         'Cleantech (%)': data.reduce((a, b) => a + parseFloat(b['Cleantech (%)']), 0) / data.length,
-        'Fossil Fuels (%)': data.reduce((a, b) => a + parseFloat(b['Fossil Fuels (%)']), 0) / data.length,
+        'CO2 Intensity (MT per $ million revenue)': data.reduce((a, b) => a + parseFloat(b['CO2 Intensity (MT per $ million revenue)']), 0) / data.length,
         'Coal (%)': data.reduce((a, b) => a + parseFloat(b['Coal (%)']), 0) / data.length,
+        'Fossil Fuels (%)': data.reduce((a, b) => a + parseFloat(b['Fossil Fuels (%)']), 0) / data.length,
+        'Net climate impact (%)': data.reduce((a, b) => a + parseFloat(b['Net climate impact (%)']), 0) / data.length,
+        'SDG Alignment (%)': data.reduce((a, b) => a + parseFloat(b['SDG Alignment (%)']), 0) / data.length,
         'Sensitive sectors (%)': data.reduce((a, b) => a + parseFloat(b['Sensitive sectors (%)']), 0) / data.length
       }));
 
