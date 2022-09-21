@@ -61,15 +61,20 @@
     }
     tbody {
       tr {
+        &.row {
+          td {
+            padding: 5px;
+          }
+        }
         td {
           border: 1px solid #ccc;
           font-size: 14px;
-          padding: 5px;
           .alert {
             color: #f00;
           }
           .sub_component {
-            margin-bottom: 20px;
+            padding: 5px;
+            background-color: #f7f7f7;
             h3 {
               font-size: 20px;
               margin: 0 0 10px 0;

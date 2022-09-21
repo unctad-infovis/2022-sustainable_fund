@@ -87,7 +87,7 @@ function Table({ columns, data, renderRowSubComponent }) {
             prepareRow(row);
             return (
               <React.Fragment key={row.id}>
-                <tr {...row.getRowProps()}>
+                <tr {...row.getRowProps()} className="row">
                   {row.cells.map(cell => (
                     <td {...cell.getCellProps([{ style: cell.column.style }])}>
                       {cell.render('Cell')}
