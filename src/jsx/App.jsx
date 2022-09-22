@@ -77,12 +77,12 @@ function App() {
                           row.original[8][value.id] > 0.8
                             ? (
                               <span className="value" style={{ marginLeft: '1%', color: '#fff' }}>
-                                {(i < 4) ? formatNr(roundNr(parseFloat(row.original[8][value.id]) * 100, 2), '.', '%', '', true, true) : formatNr(roundNr(row.original[8][value.id], 1), ',', ' metric tons', '')}
+                                {(i < 4) ? formatNr(roundNr(parseFloat(row.original[8][value.id]) * 100, 2), '.', '%', '', true, true) : formatNr(roundNr(row.original[8][value.id], 1), ',', '%', '')}
                               </span>
                             )
                             : (
                               <span className="value" style={{ marginLeft: `${Math.max(row.original[8][value.id] * 100, 0) + 1}%` }}>
-                                {(i < 4) ? formatNr(roundNr(parseFloat(row.original[8][value.id]) * 100, 2), '.', '%', '', true, true) : formatNr(roundNr(row.original[8][value.id], 1), ',', ' metric tons', '')}
+                                {(i < 4) ? formatNr(roundNr(parseFloat(row.original[8][value.id]) * 100, 2), '.', '%', '', true, true) : formatNr(roundNr(row.original[8][value.id], 1), ',', '%', '')}
                               </span>
                             )
                         }
@@ -95,9 +95,9 @@ function App() {
                     : (
                       <div className="value_container">
                         <span className="value" style={{ fontWeight: 'bold' }}>
-                          {formatNr(roundNr(row.original[8][value.id], 1), ',', 'M', '$')}
+                          {formatNr(roundNr(row.original[8][value.id], 1), ',', ' metric tons', '')}
                         </span>
-                        <span className="avg">{`avg ${formatNr(roundNr(row.original[value.id], 1), ',', 'M', '$', true, false)}`}</span>
+                        <span className="avg">{`avg ${formatNr(roundNr(row.original[value.id], 1), ',', 'MT', '', true, false)}`}</span>
                       </div>
                     )}
                 </div>
@@ -115,7 +115,7 @@ function App() {
                   <div className={`value_container value_container_${i} with_bar`}>
                     <div className="bar" style={{ width: `${row.original[8][value.id] * 100}%` }} />
                     {
-                      row.original[8][value] > 0.8
+                      row.original[8][value.id] > 0.8
                         ? (
                           <span className="value" style={{ marginLeft: '1%', color: '#fff' }}>
                             {formatNr(roundNr(parseFloat(row.original[8][value.id]) * 100, 2), '.', '%', '', true, true)}
@@ -167,13 +167,13 @@ function App() {
         Header: 'Fund Provider'
       }, {
         accessor: '1',
-        Cell: ({ value }) => formatNr(roundNr(value, 1), ',', 'M', '$'),
-        Header: 'AuM ¹',
+        Cell: ({ value }) => formatNr(roundNr(value, 1), ',', '', ''),
+        Header: 'AUM ¹, millions of USD',
         style: { textAlign: 'right' }
       }, {
         accessor: '2',
-        Cell: ({ value }) => addAlert(formatNr(roundNr(parseFloat(value) * 100, 1), '.', '%', '', true, true), parseFloat(value)),
-        Header: 'PERF 2021 USD',
+        Cell: ({ value }) => addAlert(formatNr(roundNr(parseFloat(value) * 100, 1), '.', '', '', true, true), parseFloat(value)),
+        Header: 'Financial performance 2020-2021, %',
         sortType: compareNumericString,
         style: { textAlign: 'right' }
       }, {
@@ -182,23 +182,23 @@ function App() {
         Header: 'Region'
       }, {
         accessor: '4',
-        Cell: ({ value }) => value,
-        Header: 'ESG Rating (Conser)',
+        Cell: ({ value }) => `${value}/10`,
+        Header: 'ESG Rating, Conser',
         style: { textAlign: 'center' }
       }, {
         accessor: '5',
         Cell: ({ value }) => ((value !== '') ? value : '–'),
-        Header: 'Applied SFDR Article ²',
+        Header: 'Applied SFDR Article ²',
       }, {
         accessor: '6',
-        Cell: ({ value }) => addAlert(formatNr(roundNr(parseFloat(value) * 100, 2), '.', '%', '', true, true, value), parseFloat(value)),
-        Header: 'Net climate impact',
+        Cell: ({ value }) => addAlert(formatNr(roundNr(parseFloat(value) * 100, 2), '.', '', '', true, true, value), parseFloat(value)),
+        Header: 'Net climate impact, %',
         sortType: compareNumericString,
         style: { textAlign: 'right' }
       }, {
         accessor: '7',
-        Cell: ({ value }) => formatNr(roundNr(parseFloat(value) * 100, 2), '.', '%', '', true, true),
-        Header: 'SDG Alignment ³',
+        Cell: ({ value }) => formatNr(roundNr(parseFloat(value) * 100, 2), '.', '', '', true, true),
+        Header: 'SDG Alignment ³, %',
         sortType: compareNumericString,
         style: { textAlign: 'right' }
       }]);
