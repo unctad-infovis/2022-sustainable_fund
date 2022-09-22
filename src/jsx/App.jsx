@@ -168,7 +168,7 @@ function App() {
       }, {
         accessor: '1',
         Cell: ({ value }) => formatNr(roundNr(value, 1), ',', '', ''),
-        Header: 'AUM ¹, millions of USD',
+        Header: 'AUM < 5¹, millions of USD',
         style: { textAlign: 'right' }
       }, {
         accessor: '2',
@@ -247,19 +247,15 @@ function App() {
             AUM – Assets under management;
             {' '}
             <sup>2</sup>
-            {' '}
             SFDR - Sustainable Finance Disclosure Regulation (European Union only);
             {' '}
             <sup>3</sup>
-            {' '}
             SDG Alignment is the share of exposure of the fund to the following SDG relevant sectors: water and sanitation, transport infrastructure, telecommunications infrastructure, health, food and agriculture, education, ecosystems/biodiversity and climate change mitigation/renewables;
             {' '}
             <sup>4</sup>
-            {' '}
             Sensitive sectors includes weapons, cluster bombs and tobacco;
             {' '}
             <sup>5</sup>
-            {' '}
             CO2 Intensity is the carbon intensity of a portfolio measured by metric tons of carbon emissions per million dollars of revenue.
           </span>
         </div>
