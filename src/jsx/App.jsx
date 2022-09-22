@@ -45,6 +45,7 @@ function App() {
     ({ row }) => (
       <div className="sub_component">
         <h3>{row.original[8]['Fund Name']}</h3>
+        <p>{row.original[8]['Funds Description']}</p>
         <div className="further_info_container">
           {
             [{ title: 'ISIN', id: 'ISIN' }, { title: 'LPID', id: 'LPID' }].map(value => (
@@ -60,25 +61,53 @@ function App() {
           }
         </div>
         <div className="further_info_container">
-          <div className="column">
-            <h4>Sustainability Investment Strategy</h4>
+          <div className="column column_0">
+            <h4>Net climate impact</h4>
             {
-              ['Best in class', 'Positive Screen', 'Negative Screen', 'ESG Incorporation', 'Engagement', 'Thematic'].map(value => (
-                (row.original[8][value] === 'yes')
-                  && (
-                  <div className="row" key={value}>
-                    <span className="value">{(row.original[8][value]) === 'yes' ? '✅ ' : ''}</span>
-                    <span className="label">
-                      {value}
-                    </span>
+              [{ title: 'Cleantech minus fossil fuels', id: 'Net climate impact (%)' }, { title: 'Cleantech in total', id: 'Cleantech (%)' }, { title: 'Fossil Fuels in total', id: 'Fossil Fuels (%)' }, { title: 'Share of Coal in Fossil', id: 'Coal (%)' }, { title: 'Carbon intensity ⁵ (metric tons/$ million revenue)', id: 'CO2 Intensity (MT per $ million revenue)' }, { title: 'Carbon intensity benchmark (MT/$ million revenue)', id: 'BM tCO2eq/ Revenues ($mio)' }].map((value, i) => (
+                <div className="row" key={value.id}>
+                  <div className="label">
+                    {value.title}
                   </div>
-                  )
+                  {(i < 4)
+                    ? (
+                      <div className={(i === 0) ? `value_container value_container_${i} with_bar first` : `value_container value_container_${i} with_bar`}>
+                        <div className="bar" style={{ width: `${row.original[8][value.id] * 100}%` }} />
+                        {
+                          row.original[8][value.id] > 0.8
+                            ? (
+                              <span className="value" style={{ marginLeft: '1%', color: '#fff' }}>
+                                {(i < 4) ? formatNr(roundNr(parseFloat(row.original[8][value.id]) * 100, 2), '.', '%', '', true, true) : formatNr(roundNr(row.original[8][value.id], 1), ',', ' metric tons', '')}
+                              </span>
+                            )
+                            : (
+                              <span className="value" style={{ marginLeft: `${Math.max(row.original[8][value.id] * 100, 0) + 1}%` }}>
+                                {(i < 4) ? formatNr(roundNr(parseFloat(row.original[8][value.id]) * 100, 2), '.', '%', '', true, true) : formatNr(roundNr(row.original[8][value.id], 1), ',', ' metric tons', '')}
+                              </span>
+                            )
+                        }
+                        <span className="avg">
+                          {(i === 0 ? 'Database ' : '')}
+                          {`avg ${formatNr(roundNr(row.original[value.id] * 100, 1), '.', '%', '', true, true)}`}
+                        </span>
+                      </div>
+                    )
+                    : (
+                      <div className="value_container">
+                        <span className="value" style={{ fontWeight: 'bold' }}>
+                          {formatNr(roundNr(row.original[8][value.id], 1), ',', 'M', '$')}
+                        </span>
+                        <span className="avg">{`avg ${formatNr(roundNr(row.original[value.id], 1), ',', 'M', '$', true, false)}`}</span>
+                      </div>
+                    )}
+                </div>
               ))
             }
-            <br />
+          </div>
+          <div className="column column_1">
             <h4>Sustainable Development Goals</h4>
             {
-              [{ title: 'SDG Alignment', id: 'SDG Alignment (%)' }, { title: 'Sensitive sectors', id: 'Sensitive sectors (%)' }].map((value, i) => (
+              [{ title: 'SDG Alignment', id: 'SDG Alignment (%)' }, { title: 'Sensitive sectors ⁴', id: 'Sensitive sectors (%)' }].map((value, i) => (
                 <div className="row" key={value.id}>
                   <div className="label">
                     {value.title}
@@ -103,44 +132,19 @@ function App() {
                 </div>
               ))
             }
-          </div>
-          <div className="column">
-            <h4>Net climate impact</h4>
+            <br />
+            <h4>Sustainability Investment Strategy</h4>
             {
-              [{ title: 'Cleantech minus fossil fuels', id: 'Net climate impact (%)' }, { title: 'Cleantech in total', id: 'Cleantech (%)' }, { title: 'Fossil Fuels in total', id: 'Fossil Fuels (%)' }, { title: 'Share of Coal in Fossil', id: 'Coal (%)' }, { title: 'CO2 Intensity', id: 'CO2 Intensity (MT per $ million revenue)' }, { title: 'BM', id: 'BM tCO2eq/ Revenues ($mio)' }].map((value, i) => (
-                <div className="row" key={value.id}>
-                  <div className="label">
-                    {value.title}
+              ['Best in class', 'Positive Screen', 'Negative Screen', 'ESG Incorporation', 'Engagement', 'Thematic'].map(value => (
+                (row.original[8][value] === 'yes')
+                  && (
+                  <div className="row" key={value}>
+                    <span className="value">{(row.original[8][value]) === 'yes' ? '✅ ' : ''}</span>
+                    <span className="label">
+                      {value}
+                    </span>
                   </div>
-                  {(i < 4)
-                    ? (
-                      <div className={(i === 0) ? `value_container value_container_${i} with_bar first` : `value_container value_container_${i} with_bar`}>
-                        <div className="bar" style={{ width: `${row.original[8][value.id] * 100}%` }} />
-                        {
-                          row.original[8][value.id] > 0.8
-                            ? (
-                              <span className="value" style={{ marginLeft: '1%', color: '#fff' }}>
-                                {(i < 4) ? formatNr(roundNr(parseFloat(row.original[8][value.id]) * 100, 2), '.', '%', '', true, true) : formatNr(roundNr(row.original[8][value.id], 1), ',', 'M', '$')}
-                              </span>
-                            )
-                            : (
-                              <span className="value" style={{ marginLeft: `${Math.max(row.original[8][value.id] * 100, 0) + 1}%` }}>
-                                {(i < 4) ? formatNr(roundNr(parseFloat(row.original[8][value.id]) * 100, 2), '.', '%', '', true, true) : formatNr(roundNr(row.original[8][value.id], 1), ',', 'M', '$')}
-                              </span>
-                            )
-                        }
-                        <span className="avg">{`avg ${formatNr(roundNr(row.original[value.id] * 100, 1), '.', '%', '', true, true)}`}</span>
-                      </div>
-                    )
-                    : (
-                      <div className="value_container">
-                        <span className="value" style={{ fontWeight: 'bold' }}>
-                          {formatNr(roundNr(row.original[8][value.id], 1), ',', 'M', '$')}
-                        </span>
-                        <span className="avg">{`avg ${formatNr(roundNr(row.original[value.id], 1), ',', 'M', '$', true, false)}`}</span>
-                      </div>
-                    )}
-                </div>
+                  )
               ))
             }
           </div>
@@ -164,7 +168,7 @@ function App() {
       }, {
         accessor: '1',
         Cell: ({ value }) => formatNr(roundNr(value, 1), ',', 'M', '$'),
-        Header: 'AuM',
+        Header: 'AuM ¹',
         style: { textAlign: 'right' }
       }, {
         accessor: '2',
@@ -184,7 +188,7 @@ function App() {
       }, {
         accessor: '5',
         Cell: ({ value }) => ((value !== '') ? value : '–'),
-        Header: 'Applied SFDR Article',
+        Header: 'Applied SFDR Article ²',
       }, {
         accessor: '6',
         Cell: ({ value }) => addAlert(formatNr(roundNr(parseFloat(value) * 100, 2), '.', '%', '', true, true, value), parseFloat(value)),
@@ -194,7 +198,7 @@ function App() {
       }, {
         accessor: '7',
         Cell: ({ value }) => formatNr(roundNr(parseFloat(value) * 100, 2), '.', '%', '', true, true),
-        Header: 'SDG Alignment',
+        Header: 'SDG Alignment ³',
         sortType: compareNumericString,
         style: { textAlign: 'right' }
       }]);
@@ -231,6 +235,35 @@ function App() {
         data={rowData}
         renderRowSubComponent={renderRowSubComponent}
       />
+      <div className="caption meta">
+        <div>
+          <em>Source: </em>
+          <span>UNCTAD based on Conser data.</span>
+        </div>
+        <div>
+          <em>Notes: </em>
+          <span>
+            <sup>1</sup>
+            AUM – Assets under management;
+            {' '}
+            <sup>2</sup>
+            {' '}
+            SFDR - Sustainable Finance Disclosure Regulation (European Union only);
+            {' '}
+            <sup>3</sup>
+            {' '}
+            SDG Alignment is the share of exposure of the fund to the following SDG relevant sectors: water and sanitation, transport infrastructure, telecommunications infrastructure, health, food and agriculture, education, ecosystems/biodiversity and climate change mitigation/renewables;
+            {' '}
+            <sup>4</sup>
+            {' '}
+            Sensitive sectors includes weapons, cluster bombs and tobacco;
+            {' '}
+            <sup>5</sup>
+            {' '}
+            CO2 Intensity is the carbon intensity of a portfolio measured by metric tons of carbon emissions per million dollars of revenue.
+          </span>
+        </div>
+      </div>
       <noscript>Your browser does not support JavaScript!</noscript>
     </div>
   );
