@@ -168,7 +168,7 @@ function App() {
       }, {
         accessor: '1',
         Cell: ({ value }) => formatNr(roundNr(value, 1), ',', '', ''),
-        Header: 'AUM < 5¹, millions of USD',
+        Header: 'AUM ¹, millions of USD',
         style: { textAlign: 'right' }
       }, {
         accessor: '2',
