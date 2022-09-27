@@ -97,7 +97,7 @@ function App() {
                         <span className="value" style={{ fontWeight: 'bold' }}>
                           {formatNr(roundNr(row.original[8][value.id], 1), ',', ' metric tons', '')}
                         </span>
-                        <span className="avg">{`avg ${formatNr(roundNr(row.original[value.id], 1), ',', 'MT', '', true, false)}`}</span>
+                        {value.title === 'Carbon intensity ⁵ (metric tons/$ million revenue)' && <span className="avg">{`avg ${formatNr(roundNr(row.original[value.id], 1), ',', 'MT', '', true, false)}`}</span>}
                       </div>
                     )}
                 </div>
