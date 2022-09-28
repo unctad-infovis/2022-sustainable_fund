@@ -2,6 +2,9 @@
 
 **Live demo** https://unctad-infovis.github.io/2022-sustainable_fund/
 
+## Used in
+* [https://uat.gsfo.org/sustainable-funds-database](GSFO)
+
 ## Rights of usage
 
 Contact Teemo Tebest.
