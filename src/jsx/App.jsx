@@ -166,10 +166,11 @@ function App() {
       }, {
         accessor: '0',
         Cell: ({ value }) => value,
-        Header: 'Fund Provider'
+        Header: 'Fund Provider',
+        id: 'fund_provider'
       }, {
         accessor: '1',
-        Cell: ({ value }) => formatNr(roundNr(value, 1), ',', '', ''),
+        Cell: ({ value }) => formatNr(roundNr(value, 0), ',', '', ''),
         Header: 'AUM ¹, millions of USD',
         style: { textAlign: 'right' }
       }, {
