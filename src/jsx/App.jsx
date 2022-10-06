@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../styles/styles.less';
 
 // Load helpers.
@@ -40,6 +40,8 @@ function App() {
   // const [data, setData] = useState(false);
   const [columnData, setColumnData] = useState([]);
   const [rowData, setRowData] = useState([]);
+
+  const appRef = useRef();
 
   const renderRowSubComponent = React.useCallback(
     ({ row }) => (
@@ -223,19 +225,21 @@ function App() {
         'SDG Alignment (%)': data.reduce((a, b) => a + parseFloat(b['SDG Alignment (%)']), 0) / data.length,
         'Sensitive sectors (%)': data.reduce((a, b) => a + parseFloat(b['Sensitive sectors (%)']), 0) / data.length
       }));
-
+      appRef.current.querySelector('.loading_row').style.display = 'none';
+      appRef.current.querySelector('.pagination').style.display = 'block';
+      appRef.current.querySelector('.caption').style.display = 'block';
       setRowData(rows);
     });
   }, []);
 
   return (
-    <div className="app">
+    <div className="app" ref={appRef}>
       <Table
         columns={columnData}
         data={rowData}
         renderRowSubComponent={renderRowSubComponent}
       />
-      <div className="caption meta">
+      <div className="caption">
         <div>
           <em>Source: </em>
           <span>UNCTAD based on Conser data.</span>

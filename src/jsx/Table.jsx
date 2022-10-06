@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { } from 'react';
 // https://www.npmjs.com/package/react-table
 import {
   useTable, useSortBy, usePagination, useGlobalFilter, useExpanded
@@ -38,13 +38,13 @@ function Table({ columns, data, renderRowSubComponent }) {
 
   // Render the UI for your table
   return (
-    <div className="app">
+    <>
       <table
         {...getTableProps()}
         style={{ borderCollapse: 'collapse', width: '100%' }}
       >
         <thead>
-          <tr className="search">
+          <tr className="search_row">
             <th colSpan={100}>
               <Filter
                 preGlobalFilteredRows={preGlobalFilteredRows}
@@ -53,8 +53,13 @@ function Table({ columns, data, renderRowSubComponent }) {
               />
             </th>
           </tr>
+          <tr className="loading_row">
+            <th colSpan={100}>
+              <div className="loading">Loading data...</div>
+            </th>
+          </tr>
           {headerGroups.map((group) => (
-            <tr {...group.getHeaderGroupProps()} className="header">
+            <tr {...group.getHeaderGroupProps()} className="header_row">
               {group.headers.map((column) => (
                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                   <span className="header">{column.render('Header')}</span>
@@ -150,7 +155,7 @@ function Table({ columns, data, renderRowSubComponent }) {
           ))}
         </select>
       </div>
-    </div>
+    </>
   );
 }
 
