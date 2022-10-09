@@ -170,7 +170,7 @@ function App() {
         id: 'fund_provider'
       }, {
         accessor: '1',
-        Cell: ({ value }) => formatNr(roundNr(value, 0), ',', '', ''),
+        Cell: ({ value }) => formatNr(roundNr(value, 0), ' ', '', ''),
         Header: 'AUM ¹, millions of USD',
         style: { textAlign: 'right' }
       }, {
