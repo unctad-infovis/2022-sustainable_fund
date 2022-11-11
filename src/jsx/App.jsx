@@ -243,7 +243,7 @@ function App() {
       <div className="caption">
         <div>
           <em>Source: </em>
-          <span>UNCTAD based on Conser data.</span>
+          <span>ESG data & analysis provided by Conser. Other data based on public data sources.</span>
         </div>
         <div>
           <em>Notes: </em>
