@@ -66,7 +66,8 @@ function App() {
           <div className="column column_0">
             <h4>Net climate impact</h4>
             {
-              [{ title: 'Cleantech minus fossil fuels', id: 'Net climate impact (%)' }, { title: 'Cleantech in total', id: 'Cleantech (%)' }, { title: 'Fossil Fuels in total', id: 'Fossil Fuels (%)' }, { title: 'Share of Coal in Fossil', id: 'Coal (%)' }, { title: 'Carbon intensity ⁶ (metric tons/$ million revenue)', id: 'CO2 Intensity (MT per $ million revenue)' }, { title: 'Carbon intensity benchmark (MT/$ million revenue)', id: 'BM tCO2eq/ Revenues ($mio)' }].map((value, i) => (
+              // [{ title: 'Cleantech minus fossil fuels', id: 'Net climate impact (%)' }, { title: 'Cleantech in total', id: 'Cleantech (%)' }, { title: 'Fossil Fuels in total', id: 'Fossil Fuels (%)' }, { title: 'Share of Coal in Fossil', id: 'Coal (%)' }, { title: 'Carbon intensity ⁶ (metric tons/$ million revenue)', id: 'CO2 Intensity (MT per $ million revenue)' }, { title: 'Carbon intensity benchmark (MT/$ million revenue)', id: 'BM tCO2eq/ Revenues ($mio)' }].map((value, i) => (
+              [{ title: 'Cleantech minus fossil fuels', id: 'Net climate impact (%)' }, { title: 'Cleantech in total', id: 'Cleantech (%)' }, { title: 'Fossil Fuels in total', id: 'Fossil Fuels (%)' }, { title: 'Share of Coal in Fossil', id: 'Coal (%)' }].map((value, i) => (
                 <div className="row" key={value.id}>
                   <div className="label">
                     {value.title}
@@ -109,7 +110,7 @@ function App() {
           <div className="column column_1">
             <h4>Sustainable Development Goals</h4>
             {
-              [{ title: 'SDG Alignment', id: 'SDG Alignment (%)' }, { title: 'Sensitive sectors ⁵', id: 'Sensitive sectors (%)' }].map((value, i) => (
+              [{ title: 'SDG Alignment', id: 'SDG Alignment (%)' }, { title: 'Sensitive sectors ⁴', id: 'Sensitive sectors (%)' }].map((value, i) => (
                 <div className="row" key={value.id}>
                   <div className="label">
                     {value.title}
@@ -201,7 +202,7 @@ function App() {
       }, {
         accessor: '7',
         Cell: ({ value }) => formatNr(roundNr(parseFloat(value) * 100, 2), '.', '', '', true, true),
-        Header: 'SDG Alignment ⁴, %',
+        Header: 'SDG Alignment ³, %',
         sortType: compareNumericString,
         style: { textAlign: 'right' }
       }]);
@@ -254,17 +255,17 @@ function App() {
             <sup>2</sup>
             Conser&apos;s ESG Consensus rating uses a reverse engineering proprietary methodology to capture the spectrum of ESG opinions on a company or issuer by leading rating companies and key ESG asset managers, and thus to discover and reflect the consensus of the market.
             {' '}
-            <sup>3</sup>
+            {/* <sup>3</sup>
             SFDR - Sustainable Finance Disclosure Regulation (European Union only);
-            {' '}
-            <sup>4</sup>
+            {' '} */}
+            <sup>3</sup>
             SDG Alignment is the share of exposure of the fund to the following SDG relevant sectors: water and sanitation, transport infrastructure, telecommunications infrastructure, health, food and agriculture, education, ecosystems/biodiversity and climate change mitigation/renewables;
             {' '}
-            <sup>5</sup>
+            <sup>4</sup>
             Sensitive sectors includes weapons, cluster bombs and tobacco;
-            {' '}
+            {/* {' '}
             <sup>6</sup>
-            CO2 Intensity is the carbon intensity of a portfolio measured by metric tons of carbon emissions per million dollars of revenue.
+            CO2 Intensity is the carbon intensity of a portfolio measured by metric tons of carbon emissions per million dollars of revenue. */}
           </span>
         </div>
       </div>
