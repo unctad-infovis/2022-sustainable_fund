@@ -262,7 +262,7 @@ function App() {
             SDG Alignment is the share of exposure of the fund to the following SDG relevant sectors: water and sanitation, transport infrastructure, telecommunications infrastructure, health, food and agriculture, education, ecosystems/biodiversity and climate change mitigation/renewables;
             {' '}
             <sup>4</sup>
-            Sensitive sectors includes weapons, cluster bombs and tobacco;
+            Sensitive sectors includes weapons, cluster bombs and tobacco.
             {/* {' '}
             <sup>6</sup>
             CO2 Intensity is the carbon intensity of a portfolio measured by metric tons of carbon emissions per million dollars of revenue. */}
