@@ -50,7 +50,7 @@ function App() {
         <p>{row.original[8]['Funds Description']}</p>
         <div className="further_info_container">
           {
-            [{ title: 'ISIN', id: 'ISIN' }, { title: 'LPID', id: 'LPID' }].map(value => (
+            [{ title: 'ISIN', id: 'ISIN' }].map(value => (
               <div className="top_column" key={value.id}>
                 <span className="label">
                   {value.title}
