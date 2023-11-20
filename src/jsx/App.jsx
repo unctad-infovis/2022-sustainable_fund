@@ -66,8 +66,7 @@ function App() {
           <div className="column column_0">
             <h4>Net climate impact</h4>
             {
-              // [{ title: 'Cleantech minus fossil fuels', id: 'Net climate impact (%)' }, { title: 'Cleantech in total', id: 'Cleantech (%)' }, { title: 'Fossil Fuels in total', id: 'Fossil Fuels (%)' }, { title: 'Share of Coal in Fossil', id: 'Coal (%)' }, { title: 'Carbon intensity ⁶ (metric tons/$ million revenue)', id: 'CO2 Intensity (MT per $ million revenue)' }, { title: 'Carbon intensity benchmark (MT/$ million revenue)', id: 'BM tCO2eq/ Revenues ($mio)' }].map((value, i) => (
-              [{ title: 'Cleantech minus fossil fuels', id: 'Net climate impact (%)' }, { title: 'Cleantech in total', id: 'Cleantech (%)' }, { title: 'Fossil Fuels in total', id: 'Fossil Fuels (%)' }, { title: 'Share of Coal in Fossil', id: 'Coal (%)' }].map((value, i) => (
+              [{ title: 'Cleantech minus fossil fuels', id: 'Net climate impact' }, { title: 'Cleantech in total', id: 'Clean tech' }, { title: 'Fossil Fuels in total', id: 'Fossil fuels' }, { title: 'Share of Coal in Fossil', id: 'Coal' }].map((value, i) => (
                 <div className="row" key={value.id}>
                   <div className="label">
                     {value.title}
@@ -110,7 +109,7 @@ function App() {
           <div className="column column_1">
             <h4>Sustainable Development Goals</h4>
             {
-              [{ title: 'SDG Alignment', id: 'SDG Alignment (%)' }, { title: 'Sensitive sectors ⁴', id: 'Sensitive sectors (%)' }].map((value, i) => (
+              [{ title: 'SDG Alignment', id: 'UNCTAD SDG Alignment' }, { title: 'Sensitive sectors ⁴', id: 'UNCTAD Sensitive sectors' }].map((value, i) => (
                 <div className="row" key={value.id}>
                   <div className="label">
                     {value.title}
@@ -138,16 +137,14 @@ function App() {
             <br />
             <h4>Sustainability Investment Strategy</h4>
             {
-              ['Best in class', 'Positive Screen', 'Negative Screen', 'ESG Incorporation', 'Engagement', 'Thematic'].map(value => (
-                (row.original[8][value] === 'yes')
-                  && (
-                  <div className="row" key={value}>
-                    <span className="value">{(row.original[8][value]) === 'yes' ? '✅ ' : ''}</span>
-                    <span className="label">
-                      {value}
-                    </span>
-                  </div>
-                  )
+              ['Sustainabilty Theme'].map(value => (
+                <div className="row" key={value}>
+                  <span className="value">✅</span>
+                  {' '}
+                  <span className="label">
+                    {value}
+                  </span>
+                </div>
               ))
             }
           </div>
@@ -207,7 +204,7 @@ function App() {
         style: { textAlign: 'right' }
       }]);
 
-      const columns = ['Fund Provider', 'AuM ($ million)', 'PERF 2021 USD', 'Region', 'ESG Rating (Conser)', 'Applied SFDR Article', 'Net climate impact (%)', 'SDG Alignment (%)'];
+      const columns = ['Fund Provider', 'AuM 2022 - amount USD mios', 'Perf 1Y USD', 'Geography', 'ESG Rating', 'SFDR', 'Net climate impact', 'UNCTAD SDG Alignment'];
       const rows = data.map(row => ({
         0: row[columns[0]],
         1: row[columns[1]],
@@ -218,14 +215,14 @@ function App() {
         6: row[columns[6]],
         7: row[columns[7]],
         8: row,
-        'BM tCO2eq/ Revenues ($mio)': data.reduce((a, b) => a + parseFloat(b['BM tCO2eq/ Revenues ($mio)']), 0) / data.length,
-        'Cleantech (%)': data.reduce((a, b) => a + parseFloat(b['Cleantech (%)']), 0) / data.length,
-        'CO2 Intensity (MT per $ million revenue)': data.reduce((a, b) => a + parseFloat(b['CO2 Intensity (MT per $ million revenue)']), 0) / data.length,
-        'Coal (%)': data.reduce((a, b) => a + parseFloat(b['Coal (%)']), 0) / data.length,
-        'Fossil Fuels (%)': data.reduce((a, b) => a + parseFloat(b['Fossil Fuels (%)']), 0) / data.length,
-        'Net climate impact (%)': data.reduce((a, b) => a + parseFloat(b['Net climate impact (%)']), 0) / data.length,
-        'SDG Alignment (%)': data.reduce((a, b) => a + parseFloat(b['SDG Alignment (%)']), 0) / data.length,
-        'Sensitive sectors (%)': data.reduce((a, b) => a + parseFloat(b['Sensitive sectors (%)']), 0) / data.length
+        'AuM 2022 - amount USD mios': data.reduce((a, b) => a + parseFloat(b['AuM 2022 - amount USD mios']), 0) / data.length,
+        'Clean tech': data.reduce((a, b) => a + parseFloat(b['Clean tech']), 0) / data.length,
+        'Portfolio weighted Co2 Intensity (tCO2/mio Revenues $)': data.reduce((a, b) => a + parseFloat(b['Portfolio weighted Co2 Intensity (tCO2/mio Revenues $)']), 0) / data.length,
+        Coal: data.reduce((a, b) => a + parseFloat(b.Coal), 0) / data.length,
+        'Fossil fuels': data.reduce((a, b) => a + parseFloat(b['Fossil fuels']), 0) / data.length,
+        'Net climate impact': data.reduce((a, b) => a + parseFloat(b['Net climate impact']), 0) / data.length,
+        'UNCTAD SDG Alignment': data.reduce((a, b) => a + parseFloat(b['UNCTAD SDG Alignment']), 0) / data.length,
+        'UNCTAD Sensitive sectors': data.reduce((a, b) => a + parseFloat(b['UNCTAD Sensitive sectors']), 0) / data.length
       }));
       appRef.current.querySelector('.loading_row').style.display = 'none';
       appRef.current.querySelector('.pagination').style.display = 'block';
