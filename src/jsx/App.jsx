@@ -137,7 +137,7 @@ function App() {
             <br />
             <h4>Sustainability Investment Strategy</h4>
             {
-              ['Impact Investing', 'Negative Screening', 'Positive Screening', 'Responsible Investments', 'SRI'].map(value => (
+              ['Impact Investing', 'Negative Screening', 'Positive Screening', 'Sustainabilty Theme', 'SRI'].map(value => (
                 (row.original[8][value]) && (
                 <div className="row" key={value}>
                   <span className="label strong">
