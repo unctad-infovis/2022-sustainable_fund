@@ -137,14 +137,16 @@ function App() {
             <br />
             <h4>Sustainability Investment Strategy</h4>
             {
-              ['Sustainabilty Theme'].map(value => (
+              ['Impact Investing', 'Negative Screening', 'Positive Screening', 'Responsible Investments', 'SRI'].map(value => (
+                (row.original[8][value]) && (
                 <div className="row" key={value}>
-                  <span className="value">✅</span>
-                  {' '}
-                  <span className="label">
-                    {value}
+                  <span className="label strong">
+                    {`${value}: `}
                   </span>
+                  <span className="value">{row.original[8][value]}</span>
+                  {' '}
                 </div>
+                )
               ))
             }
           </div>
@@ -252,17 +254,11 @@ function App() {
             <sup>2</sup>
             Conser&apos;s ESG Consensus rating uses a reverse engineering proprietary methodology to capture the spectrum of ESG opinions on a company or issuer by leading rating companies and key ESG asset managers, and thus to discover and reflect the consensus of the market.
             {' '}
-            {/* <sup>3</sup>
-            SFDR - Sustainable Finance Disclosure Regulation (European Union only);
-            {' '} */}
             <sup>3</sup>
             SDG Alignment is the share of exposure of the fund to the following SDG relevant sectors: water and sanitation, transport infrastructure, telecommunications infrastructure, health, food and agriculture, education, ecosystems/biodiversity and climate change mitigation/renewables;
             {' '}
             <sup>4</sup>
             Sensitive sectors includes weapons, cluster bombs and tobacco.
-            {/* {' '}
-            <sup>6</sup>
-            CO2 Intensity is the carbon intensity of a portfolio measured by metric tons of carbon emissions per million dollars of revenue. */}
           </span>
         </div>
       </div>
