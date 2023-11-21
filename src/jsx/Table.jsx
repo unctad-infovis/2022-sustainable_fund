@@ -37,7 +37,7 @@ function Table({ columns, data, renderRowSubComponent }) {
       pageSize: 50,
       pageIndex: 0,
       globalFilter: '',
-      hiddenColumns: ['5'],
+      hiddenColumns: ['8', '9'],
       sortBy: [{ id: 'fund_provider', desc: false }]
     }
   }, useGlobalFilter, useSortBy, useExpanded, usePagination);
