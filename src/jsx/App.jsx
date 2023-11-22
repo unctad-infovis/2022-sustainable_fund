@@ -109,7 +109,7 @@ function App() {
           <div className="column column_1">
             <h4>Sustainable Development Goals</h4>
             {
-              [{ title: 'SDG Alignment', id: 'UNCTAD SDG Alignment' }, { title: 'Sensitive sectors ⁵', id: 'UNCTAD Sensitive sectors' }].map((value, i) => (
+              [{ title: 'SDG Alignment', id: 'UNCTAD SDG Alignment' }, { title: 'Sensitive sectors ⁶', id: 'UNCTAD Sensitive sectors' }].map((value, i) => (
                 <div className="row" key={value.id}>
                   <div className="label">
                     {value.title}
@@ -176,7 +176,7 @@ function App() {
       }, {
         accessor: '2',
         Cell: ({ value }) => addAlert(formatNr(roundNr(parseFloat(value) * 100, 1), '.', '', '', true, true), parseFloat(value)),
-        Header: 'Financial performance 2021-2022, %',
+        Header: 'Financial performance 2021–2022, %',
         sortType: compareNumericString,
         style: { textAlign: 'right' }
       }, {
@@ -186,7 +186,7 @@ function App() {
       }, {
         accessor: '4',
         Cell: ({ value }) => `${value}/10`,
-        Header: 'ESG Rating, Conser ²',
+        Header: 'Average ESG Rating (Conser) ²',
         style: { textAlign: 'center' }
       }, {
         accessor: '5',
@@ -195,13 +195,13 @@ function App() {
       }, {
         accessor: '6',
         Cell: ({ value }) => addAlert(formatNr(roundNr(parseFloat(value) * 100, 2), '.', '', '', true, true, value), parseFloat(value)),
-        Header: 'Net climate impact, %',
+        Header: 'Net climate impact, %³',
         sortType: compareNumericString,
         style: { textAlign: 'right' }
       }, {
         accessor: '7',
         Cell: ({ value }) => formatNr(roundNr(parseFloat(value) * 100, 2), '.', '', '', true, true),
-        Header: 'SDG Alignment ⁴, %',
+        Header: 'SDG Alignment ⁵, %',
         sortType: compareNumericString,
         style: { textAlign: 'right' }
       }, {
@@ -264,15 +264,18 @@ function App() {
             AUM – Assets under management;
             {' '}
             <sup>2</sup>
-            Conser&apos;s ESG Consensus rating uses a reverse engineering proprietary methodology to capture the spectrum of ESG opinions on a company or issuer by leading rating companies and key ESG asset managers, and thus to discover and reflect the consensus of the market.
+            Conser&apos;s ESG Consensus rating uses a reverse engineering proprietary methodology to capture the spectrum of ESG opinions on a company or issuer by leading rating companies and key ESG asset managers, and thus to discover and reflect the consensus of the market;
             {' '}
             <sup>3</sup>
             SFDR - Sustainable Finance Disclosure Regulation (European Union only);
             {' '}
             <sup>4</sup>
-            SDG Alignment is the share of exposure of the fund to the following SDG relevant sectors: water and sanitation, transport infrastructure, telecommunications infrastructure, health, food and agriculture, education, ecosystems/biodiversity and climate change mitigation/renewables;
+            Share of the fund portfolio invested in cleantech minus the share invested in fossil fuels;
             {' '}
             <sup>5</sup>
+            SDG Alignment is the share of exposure of the fund to the following SDG relevant sectors: water and sanitation, transport infrastructure, telecommunications infrastructure, health, food and agriculture, education, ecosystems/biodiversity and climate change mitigation/renewables;
+            {' '}
+            <sup>6</sup>
             Sensitive sectors include weapons, pornography, gambling and alcohol.
           </span>
         </div>
