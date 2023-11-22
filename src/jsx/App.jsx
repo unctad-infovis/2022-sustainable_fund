@@ -175,7 +175,7 @@ function App() {
         style: { textAlign: 'right' }
       }, {
         accessor: '2',
-        Cell: ({ value }) => addAlert(formatNr(roundNr(parseFloat(value) * 100, 1), '.', '', '', true, true), parseFloat(value)),
+        Cell: ({ value }) => ((value) ? addAlert(formatNr(roundNr(parseFloat(value) * 100, 1), '.', '', '', true, true), parseFloat(value)) : ''),
         Header: 'Financial performance 2021–2022, %',
         sortType: compareNumericString,
         style: { textAlign: 'right' }
