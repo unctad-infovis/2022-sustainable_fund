@@ -195,7 +195,7 @@ function App() {
       }, {
         accessor: '6',
         Cell: ({ value }) => addAlert(formatNr(roundNr(parseFloat(value) * 100, 2), '.', '', '', true, true, value), parseFloat(value)),
-        Header: 'Net climate impact, %³',
+        Header: 'Net climate impact ⁴, %',
         sortType: compareNumericString,
         style: { textAlign: 'right' }
       }, {
