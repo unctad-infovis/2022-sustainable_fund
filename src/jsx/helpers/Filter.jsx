@@ -5,7 +5,7 @@ import {
 
 import PropTypes from 'prop-types';
 
-function Filter({ preGlobalFilteredRows, globalFilter, setGlobalFilter }) {
+function Filter({ preGlobalFilteredRows, globalFilter = '', setGlobalFilter }) {
   const count = preGlobalFilteredRows.length;
   const [value, setValue] = React.useState(globalFilter);
   const onChange = useAsyncDebounce((val) => {
@@ -33,8 +33,4 @@ Filter.propTypes = {
   globalFilter: PropTypes.string,
   setGlobalFilter: PropTypes.instanceOf(Function).isRequired
 };
-Filter.defaultProps = {
-  globalFilter: ''
-};
-
 export default Filter;
