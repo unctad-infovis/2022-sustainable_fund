@@ -33,6 +33,7 @@
         "no-plusplus":0,
         "no-tabs": 1,
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-        "react/jsx-props-no-spreading": [0]
+        "react/jsx-props-no-spreading": [0],
+        "react/require-default-props": ["error", { "functions": "defaultArguments" }]
     }
 }
